@@ -61,11 +61,11 @@ export default function Footer() {
               </li>
               <li>
                 <a
-                  href="mailto:info@elektrojuricek.cz"
+                  href="mailto:elektro.juricek@seznam.cz"
                   className="flex items-center gap-2.5 text-sm text-slate-400 hover:text-white transition-colors duration-200"
                 >
                   <Mail className="w-4 h-4 text-blue-400 flex-shrink-0" />
-                  info@elektrojuricek.cz
+                  elektro.juricek@seznam.cz
                 </a>
               </li>
               <li className="flex items-start gap-2.5 text-sm text-slate-400">

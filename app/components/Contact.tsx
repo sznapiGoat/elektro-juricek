@@ -79,7 +79,7 @@ export default function Contact() {
               </div>
               <div>
                 <p className="text-xs text-slate-400 font-medium uppercase tracking-wider mb-1">E-mail</p>
-                <p className="text-xl font-bold text-white">info@elektrojuricek.cz</p>
+                <p className="text-xl font-bold text-white">elektro.juricek@seznam.cz</p>
                 <p className="text-sm text-slate-500 mt-0.5">Odpovídáme do 24 hodin</p>
               </div>
             </motion.a>
