@@ -45,15 +45,19 @@ export default function About() {
             {/* Glow behind image */}
             <div className="absolute -inset-4 rounded-3xl bg-blue-500/10 blur-2xl" />
 
-            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/50 border border-white/[0.08]">
-              <div className="relative aspect-[4/3]">
+            {/* Cap width so a 206 px source isn't stretched beyond recognition */}
+            <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-black/50 border border-white/[0.08] max-w-sm mx-auto lg:mx-0">
+              {/* aspect-square matches the 206×206 source exactly — no crop, no stretch */}
+              <div className="relative aspect-square bg-slate-900">
                 <Image
                   src="/images/elektro1.jpg"
                   alt="Elektro Juříček – mobilní servisní vůz"
                   fill
-                  sizes="(max-width: 1024px) 100vw, 50vw"
-                  className="object-cover"
+                  sizes="(max-width: 1024px) 384px, 384px"
+                  className="object-contain contrast-[1.03] brightness-[1.02]"
                   priority
+                  unoptimized
+                  style={{ imageRendering: "-webkit-optimize-contrast" }}
                 />
               </div>
 
