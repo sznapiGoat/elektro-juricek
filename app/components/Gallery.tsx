@@ -5,84 +5,87 @@ import { motion, useInView, AnimatePresence } from "motion/react";
 import Image from "next/image";
 import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
 
+/* ─────────────────────────────────────────────
+   Data  (elektro.2.jpg removed — duplicate of elektro5)
+───────────────────────────────────────────── */
 const projects = [
   {
-    src: "/images/elektro.2.jpg",
-    title: "Bytová rozvodna",
+    src: "/images/elektro5.jpg",
+    title: "Bytové rozvodnice",
     category: "Rozvaděče",
-    description: "Kompletní osazení bytové rozvodny – jističe, chrániče, svorkovnice.",
-  },
-  {
-    src: "/images/elektro3.jpg",
-    title: "Průmyslová instalace",
-    category: "Průmysl",
-    description: "Montáž frekvenčního měniče a průmyslového rozvaděče na stavbě.",
+    description: "Kompletní zapojení jističů a proudových chráničů v moderním interiéru.",
   },
   {
     src: "/images/elektro4.jpg",
-    title: "Silový přívod – přípojnice",
+    title: "Silový přívod",
     category: "Rozvaděče",
     description: "Zapojení měděných přípojnic a kabelových přívodů do hlavního rozvaděče.",
   },
   {
-    src: "/images/elektro5.jpg",
-    title: "Hlavní rozvaděč RD",
-    category: "Rozvaděče",
-    description: "Nový hlavní rozvaděč rodinného domu – Eaton, kompletní elektroinstalace.",
-  },
-  {
     src: "/images/elektro6.jpg",
     title: "Datový rozvaděč",
-    category: "Datové sítě",
+    category: "Rozvaděče",
     description: "Strukturovaná kabeláž a osazení datového rozvaděče pro kancelářský objekt.",
   },
   {
     src: "/images/elektro7.jpg",
-    title: "Silový přívod – detail",
+    title: "Revize a údržba",
     category: "Rozvaděče",
-    description: "Detail zapojení silových přívodů a přípojnicového systému.",
+    description: "Odborné kontroly a servis elektrických zařízení dle platných norem ČSN.",
+  },
+  {
+    src: "/images/elektro3.jpg",
+    title: "Průmyslové rozvody",
+    category: "Průmysl",
+    description: "Realizace elektroinstalací v komerčních a průmyslových objektech.",
   },
   {
     src: "/images/elektro8.jpg",
-    title: "Tepelné čerpadlo",
-    category: "Tepelná čerpadla",
-    description: "Elektrická přípojka a instalace tepelného čerpadla vzduch–voda.",
+    title: "Tepelná čerpadla",
+    category: "Průmysl",
+    description: "Elektrická přípojka a kompletní instalace tepelného čerpadla vzduch–voda.",
   },
   {
     src: "/images/elektro9.jpg",
     title: "Průmyslová rozvodna",
-    category: "Průmysl",
-    description: "Rekonstrukce starší průmyslové rozvodny – nové prvky, bezpečný provoz.",
+    category: "Rekonstrukce",
+    description: "Modernizace starých hliníkových rozvodů a výměna průmyslových rozvaděčů.",
   },
   {
     src: "/images/elektro 10.jpg",
     title: "Rekonstrukce elektroměrů",
     category: "Rekonstrukce",
-    description: "Stav před rekonstrukcí – výměna starých elektroměrů a pojistkových skříní.",
+    description: "Výměna starých elektroměrů a pojistkových skříní za moderní prvky.",
   },
-];
+] as const;
+
+type Category = "Vše" | "Rozvaděče" | "Průmysl" | "Rekonstrukce";
+
+const TABS: Category[] = ["Vše", "Rozvaděče", "Průmysl", "Rekonstrukce"];
 
 const categoryColor: Record<string, string> = {
   Rozvaděče: "bg-blue-500/25 text-blue-200 border-blue-400/30",
-  Průmysl: "bg-amber-500/25 text-amber-200 border-amber-400/30",
-  "Datové sítě": "bg-emerald-500/25 text-emerald-200 border-emerald-400/30",
-  "Tepelná čerpadla": "bg-cyan-500/25 text-cyan-200 border-cyan-400/30",
+  Průmysl:   "bg-amber-500/25 text-amber-200 border-amber-400/30",
   Rekonstrukce: "bg-violet-500/25 text-violet-200 border-violet-400/30",
 };
 
-/* ── Lightbox ── */
+/* ─────────────────────────────────────────────
+   Lightbox
+───────────────────────────────────────────── */
 function Lightbox({
   index,
+  filtered,
   onClose,
   onPrev,
   onNext,
 }: {
   index: number;
+  filtered: typeof projects[number][];
   onClose: () => void;
   onPrev: () => void;
   onNext: () => void;
 }) {
-  const project = projects[index];
+  const project = filtered[index];
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -103,7 +106,6 @@ function Lightbox({
       onClick={onClose}
       className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center p-4"
     >
-      {/* Close */}
       <button
         onClick={onClose}
         className="absolute top-4 right-4 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
@@ -112,7 +114,6 @@ function Lightbox({
         <X className="w-5 h-5 text-white" />
       </button>
 
-      {/* Prev */}
       <button
         onClick={(e) => { e.stopPropagation(); onPrev(); }}
         className="absolute left-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
@@ -121,7 +122,6 @@ function Lightbox({
         <ChevronLeft className="w-5 h-5 text-white" />
       </button>
 
-      {/* Next */}
       <button
         onClick={(e) => { e.stopPropagation(); onNext(); }}
         className="absolute right-4 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full bg-white/10 hover:bg-white/20 flex items-center justify-center transition-colors z-10"
@@ -130,22 +130,21 @@ function Lightbox({
         <ChevronRight className="w-5 h-5 text-white" />
       </button>
 
-      {/* Image card */}
       <motion.div
-        key={index}
+        key={project.src}
         initial={{ opacity: 0, scale: 0.94 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0, scale: 0.94 }}
         transition={{ duration: 0.25, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-3xl rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
+        className="relative w-full max-w-2xl rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
       >
         <div className="relative aspect-square bg-slate-900">
           <Image
             src={project.src}
             alt={project.title}
             fill
-            sizes="(max-width: 768px) 100vw, 768px"
+            sizes="(max-width: 768px) 100vw, 672px"
             className="object-cover transform-gpu [image-rendering:crisp-edges] md:[image-rendering:auto]"
             priority
             unoptimized
@@ -165,8 +164,8 @@ function Lightbox({
             <p className="font-bold text-white text-lg leading-tight">{project.title}</p>
             <p className="text-slate-400 text-sm mt-1">{project.description}</p>
           </div>
-          <span className="text-xs text-slate-600 flex-shrink-0 mt-1">
-            {index + 1} / {projects.length}
+          <span className="text-xs text-slate-600 flex-shrink-0 mt-1 tabular-nums">
+            {index + 1}&thinsp;/&thinsp;{filtered.length}
           </span>
         </div>
       </motion.div>
@@ -174,13 +173,15 @@ function Lightbox({
   );
 }
 
-/* ── Grid card ── */
+/* ─────────────────────────────────────────────
+   Grid card
+───────────────────────────────────────────── */
 function ProjectCard({
   project,
   index,
   onClick,
 }: {
-  project: (typeof projects)[number];
+  project: typeof projects[number];
   index: number;
   onClick: () => void;
 }) {
@@ -190,9 +191,11 @@ function ProjectCard({
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 32 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
+      layout
+      initial={{ opacity: 0, y: 28 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+      exit={{ opacity: 0, scale: 0.95 }}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
       className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-xl shadow-black/40 border border-white/[0.07] hover:border-blue-500/30 transition-colors duration-300"
     >
@@ -208,15 +211,15 @@ function ProjectCard({
       />
 
       {/* Hover overlay */}
-      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/40 to-transparent translate-y-2 opacity-0 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-350 ease-out" />
+      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/95 via-slate-900/30 to-transparent opacity-0 translate-y-2 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 ease-out" />
 
-      {/* Zoom icon top-right */}
-      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-250">
+      {/* Zoom icon */}
+      <div className="absolute top-3 right-3 w-8 h-8 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center opacity-0 scale-90 group-hover:opacity-100 group-hover:scale-100 transition-all duration-200">
         <ZoomIn className="w-4 h-4 text-white" />
       </div>
 
-      {/* Bottom info */}
-      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-3 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
+      {/* Bottom caption */}
+      <div className="absolute bottom-0 left-0 right-0 p-4 translate-y-2 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 ease-out">
         <span
           className={`inline-block px-2.5 py-0.5 text-xs font-semibold rounded-full border mb-1.5 ${
             categoryColor[project.category] ?? "bg-white/10 text-white border-white/20"
@@ -231,26 +234,35 @@ function ProjectCard({
   );
 }
 
-/* ── Section ── */
+/* ─────────────────────────────────────────────
+   Section
+───────────────────────────────────────────── */
 export default function Gallery() {
+  const [activeTab, setActiveTab] = useState<Category>("Vše");
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true });
 
-  const openAt = useCallback((i: number) => setLightboxIndex(i), []);
+  const filtered = activeTab === "Vše"
+    ? [...projects]
+    : projects.filter((p) => p.category === activeTab);
+
   const close = useCallback(() => setLightboxIndex(null), []);
-  const prev = useCallback(() =>
-    setLightboxIndex((i) => (i === null ? 0 : (i - 1 + projects.length) % projects.length)), []);
-  const next = useCallback(() =>
-    setLightboxIndex((i) => (i === null ? 0 : (i + 1) % projects.length)), []);
+  const prev  = useCallback(() =>
+    setLightboxIndex((i) => (i === null ? 0 : (i - 1 + filtered.length) % filtered.length)),
+    [filtered.length]);
+  const next  = useCallback(() =>
+    setLightboxIndex((i) => (i === null ? 0 : (i + 1) % filtered.length)),
+    [filtered.length]);
 
   return (
     <section id="projekty" className="relative py-24 sm:py-32 bg-[#0f172a]">
       <div className="absolute top-0 inset-x-0 h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
         {/* Header */}
-        <div ref={headerRef} className="text-center mb-14">
+        <div ref={headerRef} className="text-center mb-10">
           <motion.span
             initial={{ opacity: 0, y: 10 }}
             animate={headerInView ? { opacity: 1, y: 0 } : {}}
@@ -273,21 +285,60 @@ export default function Gallery() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="text-lg text-slate-400 max-w-xl mx-auto"
           >
-            Rozvaděče, průmyslové instalace, datové sítě, tepelná čerpadla — ukázka z naší praxe.
+            Rozvaděče, průmyslové instalace, rekonstrukce — ukázka z naší praxe.
           </motion.p>
         </div>
 
-        {/* 3-column uniform grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-          {projects.map((project, i) => (
-            <ProjectCard
-              key={project.src}
-              project={project}
-              index={i}
-              onClick={() => openAt(i)}
-            />
-          ))}
-        </div>
+        {/* Filter tabs */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={headerInView ? { opacity: 1, y: 0 } : {}}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="flex items-center justify-center gap-2 mb-10 flex-wrap"
+        >
+          {TABS.map((tab) => {
+            const count = tab === "Vše" ? projects.length : projects.filter((p) => p.category === tab).length;
+            const isActive = activeTab === tab;
+            return (
+              <button
+                key={tab}
+                onClick={() => {
+                  setActiveTab(tab);
+                  setLightboxIndex(null);
+                }}
+                className={`relative flex items-center gap-1.5 px-5 py-2 rounded-xl text-sm font-semibold transition-all duration-200 ${
+                  isActive
+                    ? "bg-blue-500 text-white shadow-lg shadow-blue-500/30"
+                    : "bg-white/[0.04] text-slate-400 hover:text-white hover:bg-white/[0.08] border border-white/[0.07]"
+                }`}
+              >
+                {tab}
+                <span
+                  className={`text-xs px-1.5 py-0.5 rounded-full tabular-nums ${
+                    isActive ? "bg-white/20 text-white" : "bg-white/5 text-slate-500"
+                  }`}
+                >
+                  {count}
+                </span>
+              </button>
+            );
+          })}
+        </motion.div>
+
+        {/* Grid */}
+        <motion.div layout className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <AnimatePresence mode="popLayout">
+            {filtered.map((project, i) => (
+              <ProjectCard
+                key={project.src}
+                project={project}
+                index={i}
+                onClick={() => setLightboxIndex(i)}
+              />
+            ))}
+          </AnimatePresence>
+        </motion.div>
+
       </div>
 
       {/* Lightbox */}
@@ -295,6 +346,7 @@ export default function Gallery() {
         {lightboxIndex !== null && (
           <Lightbox
             index={lightboxIndex}
+            filtered={filtered}
             onClose={close}
             onPrev={prev}
             onNext={next}
