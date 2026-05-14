@@ -90,7 +90,7 @@ function ServiceCard({
       {/* Text */}
       <div>
         <h3 className="text-lg font-bold text-white mb-2">{service.title}</h3>
-        <p className="text-sm text-slate-400 leading-relaxed">{service.description}</p>
+        <p className="text-sm text-slate-300 font-medium leading-relaxed">{service.description}</p>
       </div>
 
       {/* Tags */}

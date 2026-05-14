@@ -126,8 +126,9 @@ export default function Hero() {
           Hranice na Moravě · IČO 07492740
         </motion.div>
 
-        {/* Main heading */}
-        <div className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2">
+        {/* Main heading — h1 carries the local SEO phrase for crawlers */}
+        <h1 className="mb-4 flex flex-wrap justify-center gap-x-4 gap-y-2">
+          <span className="sr-only">Elektromontáže Hranice na Moravě – </span>
           {headingParts.map((part, i) => (
             <motion.span
               key={i}
@@ -141,7 +142,7 @@ export default function Hero() {
               {part.text}
             </motion.span>
           ))}
-        </div>
+        </h1>
 
         {/* Tagline */}
         <motion.p

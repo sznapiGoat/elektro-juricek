@@ -3,7 +3,7 @@
 import { useRef, useState, useCallback, useEffect } from "react";
 import { motion, useInView, AnimatePresence } from "motion/react";
 import Image from "next/image";
-import { X, ChevronLeft, ChevronRight, ZoomIn } from "lucide-react";
+import { X, ChevronLeft, ChevronRight, ZoomIn, Phone } from "lucide-react";
 
 /* ─────────────────────────────────────────────
    Data  (elektro.2.jpg removed — duplicate of elektro5)
@@ -336,6 +336,34 @@ export default function Gallery() {
                 onClick={() => setLightboxIndex(i)}
               />
             ))}
+
+            {/* CTA card — fills the 9th cell when all 8 images are shown */}
+            {activeTab === "Vše" && (
+              <motion.a
+                key="cta-card"
+                href="#kontakt"
+                layout
+                initial={{ opacity: 0, y: 28 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{ duration: 0.5, delay: projects.length * 0.06 }}
+                className="group aspect-square rounded-2xl border border-dashed border-blue-500/30 hover:border-blue-500/60 bg-blue-500/[0.03] hover:bg-blue-500/[0.07] flex flex-col items-center justify-center gap-4 text-center p-8 transition-all duration-300"
+                aria-label="Kontaktujte nás pro nezávaznou nabídku"
+              >
+                <div className="w-14 h-14 rounded-2xl bg-blue-500/10 border border-blue-500/20 flex items-center justify-center group-hover:bg-blue-500/20 transition-colors duration-300">
+                  <Phone className="w-7 h-7 text-blue-400" />
+                </div>
+                <div>
+                  <p className="text-base font-bold text-white mb-1.5">Vaše zakázka?</p>
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Kontaktujte nás pro nezávaznou cenovou nabídku.
+                  </p>
+                </div>
+                <span className="text-xs font-semibold text-blue-400 group-hover:text-blue-300 transition-colors duration-200">
+                  Napsat zprávu →
+                </span>
+              </motion.a>
+            )}
           </AnimatePresence>
         </motion.div>
 

@@ -30,6 +30,7 @@ export default function Footer() {
               {[
                 { label: "Služby", href: "#sluzby" },
                 { label: "Proč my", href: "#proc-my" },
+                { label: "O nás", href: "#o-nas" },
                 { label: "Projekty", href: "#projekty" },
                 { label: "Kontakt", href: "#kontakt" },
               ].map((link) => (
