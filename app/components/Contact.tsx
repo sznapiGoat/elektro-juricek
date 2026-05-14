@@ -66,7 +66,7 @@ export default function Contact() {
 
             {/* Email */}
             <motion.a
-              href="mailto:info@elektrojuricek.cz"
+              href="mailto:elektro.juricek@seznam.cz"
               initial={{ opacity: 0, x: -30 }}
               animate={inView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
