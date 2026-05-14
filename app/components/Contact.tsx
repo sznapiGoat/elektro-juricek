@@ -124,18 +124,29 @@ export default function Contact() {
             initial={{ opacity: 0, x: 30 }}
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            className="rounded-2xl overflow-hidden border border-white/[0.08] h-[420px] lg:h-full min-h-[420px]"
+            className="flex flex-col gap-3"
           >
-            <iframe
-              title="Elektro Juříček – mapa"
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2588.9!2d17.7181!3d49.5614!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4713fa6c65b3b7cf%3A0x1!2sPod%20Nemocnic%C3%AD%202251%2C%20753%2001%20Hranice%20I-M%C4%9Bsto!5e0!3m2!1scs!2scz!4v1715000000000!5m2!1scs!2scz"
-              width="100%"
-              height="100%"
-              style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
-              allowFullScreen
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-            />
+            <div className="rounded-2xl overflow-hidden border border-white/[0.08] h-[380px]">
+              <iframe
+                title="Elektro Juříček – mapa"
+                src="https://maps.google.com/maps?q=Pod+Nemocnic%C3%AD+2251%2C+753+01+Hranice+na+Morav%C4%9B&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                width="100%"
+                height="100%"
+                style={{ border: 0, filter: "invert(90%) hue-rotate(180deg)" }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+            <a
+              href="https://www.google.com/maps/search/?api=1&query=Pod+Nemocnic%C3%AD+2251%2C+753+01+Hranice+na+Morav%C4%9B"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-white/[0.04] hover:bg-white/[0.08] border border-white/[0.08] hover:border-white/20 text-slate-400 hover:text-white text-sm font-medium transition-all duration-200"
+            >
+              <MapPin className="w-4 h-4 text-blue-400" />
+              Otevřít v Google Maps
+            </a>
           </motion.div>
         </div>
 

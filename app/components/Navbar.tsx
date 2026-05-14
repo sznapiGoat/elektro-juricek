@@ -7,6 +7,7 @@ import { Zap, Phone, Menu, X } from "lucide-react";
 const navLinks = [
   { label: "Služby", href: "#sluzby" },
   { label: "Proč my", href: "#proc-my" },
+  { label: "O nás", href: "#o-nas" },
   { label: "Projekty", href: "#projekty" },
   { label: "Kontakt", href: "#kontakt" },
 ];
