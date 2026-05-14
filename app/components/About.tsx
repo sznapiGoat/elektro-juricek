@@ -54,10 +54,10 @@ export default function About() {
                   alt="Elektro Juříček – mobilní servisní vůz"
                   fill
                   sizes="(max-width: 1024px) 384px, 384px"
-                  className="object-contain contrast-[1.03] brightness-[1.02]"
+                  className="object-contain contrast-[1.03] brightness-[1.02] transform-gpu [image-rendering:crisp-edges] md:[image-rendering:auto]"
                   priority
                   unoptimized
-                  style={{ imageRendering: "-webkit-optimize-contrast" }}
+                  quality={100}
                 />
               </div>
 

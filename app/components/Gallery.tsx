@@ -140,13 +140,16 @@ function Lightbox({
         onClick={(e) => e.stopPropagation()}
         className="relative w-full max-w-3xl rounded-2xl overflow-hidden border border-white/10 shadow-2xl"
       >
-        <div className="relative aspect-video bg-slate-900">
+        <div className="relative aspect-square bg-slate-900">
           <Image
             src={project.src}
             alt={project.title}
             fill
             sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover"
+            className="object-cover transform-gpu [image-rendering:crisp-edges] md:[image-rendering:auto]"
+            priority
+            unoptimized
+            quality={100}
           />
         </div>
 
@@ -191,14 +194,17 @@ function ProjectCard({
       animate={inView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.55, delay: index * 0.07, ease: [0.16, 1, 0.3, 1] }}
       onClick={onClick}
-      className="group relative aspect-video rounded-2xl overflow-hidden cursor-pointer shadow-xl shadow-black/40 border border-white/[0.07] hover:border-blue-500/30 transition-colors duration-300"
+      className="group relative aspect-square rounded-2xl overflow-hidden cursor-pointer shadow-xl shadow-black/40 border border-white/[0.07] hover:border-blue-500/30 transition-colors duration-300"
     >
       <Image
         src={project.src}
         alt={project.title}
         fill
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-        className="object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+        className="object-cover transform-gpu [image-rendering:crisp-edges] md:[image-rendering:auto] transition-transform duration-500 ease-out group-hover:scale-105"
+        priority
+        unoptimized
+        quality={100}
       />
 
       {/* Hover overlay */}
